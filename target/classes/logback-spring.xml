@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<property name="LOGS" value="${log.folder}" />
+
+	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%highlight(%-5level) [%blue(%t)] %yellow(%logger{5}) - %marker: %msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	<appender name="ConsoleFile" class="ch.qos.logback.core.FileAppender">
+		<file>${LOGS}/console-logger.log</file>
+		<append>false</append>
+		<immediateFlush>true</immediateFlush>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %level %logger{36} - %thread: %msg%n </Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="RollingLogFile" class="ch.qos.logback.core.FileAppender">
+		<file>${LOGS}/app-info-logger.log</file>
+		<append>false</append>
+		<immediateFlush>true</immediateFlush>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<!--
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS}/archived-logs/app-info-logger-%d{dd-MM-yyyy_000000_000}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		-->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d %marker %p %C{1.} [%t] %m%n</Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="RollingErrorFile" class="ch.qos.logback.core.FileAppender">
+		<file>${LOGS}/app-error-logger.log</file>
+		<append>false</append>
+		<immediateFlush>true</immediateFlush>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<!--
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS}/archived-logs/app-error-logger-%d{dd-MM-yyyy_000000_000}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		-->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d %p %C{1.} [%t] %m%n%throwable{5}</Pattern>
+		</encoder>
+	</appender>
+
+	<!-- for state logging in case of batch processing (anonymized/compressed/upload) -->
+	<appender name="RollingAnonymizedLogFile" class="ch.qos.logback.core.FileAppender">
+		<file>${LOGS}/app-anonymize-logger.log</file>
+		<append>false</append>
+		<immediateFlush>true</immediateFlush>
+		<!--
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS}/archived-logs/anonymize/Anonymize-logFile-%d{dd-MM-yyyy_000000_000}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+		-->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d %p %C{1.} [%t] %m%n%throwable{5}</Pattern>
+		</encoder>
+	</appender>
+	<appender name="RollingCompressedLogFile" class="ch.qos.logback.core.FileAppender">
+		<file>${LOGS}/app-compress-logger.log</file>
+		<append>false</append>
+		<immediateFlush>true</immediateFlush>
+		<!--
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS}/archived-logs/compress/Compress-logFile-%d{dd-MM-yyyy_000000_000}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+		-->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d %p %C{1.} [%t] %m%n%throwable{5}</Pattern>
+		</encoder>
+	</appender>
+	<appender name="RollingUploadedLogFile" class="ch.qos.logback.core.FileAppender">
+		<file>${LOGS}/app-upload-logger.log</file>
+		<append>false</append>
+		<immediateFlush>true</immediateFlush>
+		<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS}/archived-logs/upload/Upload-logFile-%d{dd-MM-yyyy_000000_000}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>-->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d %p %C{1.} [%t] %m%n%throwable{5}</Pattern>
+		</encoder>
+	</appender>
+
+	<!-- LOG everything at INFO level -->
+	<root level="info">
+		<appender-ref ref="Console" />
+		<appender-ref ref="ConsoleFile" />
+	</root>
+
+	<!-- taskscheduler log -->
+	<logger name="org.springframework.scheduling" level="debug" additivity="false">
+		<appender-ref ref="ConsoleFile" />
+		<appender-ref ref="RollingErrorFile" />
+	</logger>
+
+	<!-- LOG "com.infospica.dicom.service*" at debug level -->
+	<logger name="com.infospica.dicom.service" level="debug" additivity="false">
+		<appender-ref ref="ConsoleFile" />
+		<appender-ref ref="RollingErrorFile" />
+	</logger>
+	<logger name="com.infospica.dicom.process" level="debug" additivity="false">
+		<appender-ref ref="ConsoleFile" />
+		<appender-ref ref="RollingErrorFile" />
+	</logger>
+	<logger name="com.infospica.dicom.command" level="debug" additivity="false">
+		<appender-ref ref="ConsoleFile" />
+		<appender-ref ref="RollingErrorFile" />
+	</logger>
+	<logger name="com.infospica.dicom.context" level="error" additivity="false">
+		<appender-ref ref="RollingErrorFile" />
+	</logger>
+	<logger name="com.infospica.dicom.process.state.batch.ModifyImageState" additivity="false">
+		<appender-ref ref="RollingAnonymizedLogFile" />
+	</logger>
+	<logger name="com.infospica.dicom.process.state.batch.CompressImageState" additivity="false">
+		<appender-ref ref="RollingCompressedLogFile" />
+	</logger>
+	<logger name="com.infospica.dicom.process.state.batch.UploadImageState" additivity="false">
+		<appender-ref ref="RollingUploadedLogFile" />
+	</logger>
+
+</configuration>

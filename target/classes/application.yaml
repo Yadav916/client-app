@@ -1,0 +1,13 @@
+server:
+  port: ${SERVER_PORT:5600}
+
+spring:
+  main:
+    allow-circular-references: true
+  mvc:
+    view:
+      prefix: "/WEB-INF/views/"
+      suffix: ".jsp"
+  devtools:
+    restart:
+      enabled: false

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5p - %m%n</pattern>
+    </encoder>
+
+    <!-- <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+        <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</timestampFormat>
+        <timestampFormatTimezoneId>Etc/UTC</timestampFormatTimezoneId>
+
+        <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+          <prettyPrint>true</prettyPrint>
+        </jsonFormatter>
+      </layout>
+    </encoder> -->
+  </appender>
+  <logger name="org.dcm4che3.net.Association" level="ERROR"/>
+  <logger name="org.dcm4che3.net.Timeout" level="ERROR"/>
+  <logger name="org.dcm4che3.net.Dimse" level="ERROR"/>
+  <logger name="org.dcm4che3.imageio.codec.Decompressor" level="ERROR"/>
+  <root level="ERROR">
+    <appender-ref ref="stdout"/>
+  </root>
+</configuration>

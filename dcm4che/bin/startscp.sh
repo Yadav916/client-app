@@ -1,0 +1,2 @@
+#!/bin/bash
+nohup /home/yadav/Work/Projects/Eclarity/eclarity-client/dcm4che/bin/storescp -b ECSCRIBE:2351 --directory /home/yadav/Work/Projects/Eclarity/eclarity-client/tmp/pending --request-timeout 5000 --release-timeout 5000 > /dev/null 2>&1 &
